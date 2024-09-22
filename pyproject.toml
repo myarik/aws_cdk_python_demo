@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "aws-cdk-python-demo"
+version = "0.1.0"
+description = ""
+authors = ["Yaroslav Muravskyi <yaroslav.muravskyi@myarik.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+aws-cdk-lib = "^2.159.1"
+ruff = "^0.6.6"
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
