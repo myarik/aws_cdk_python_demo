@@ -11,6 +11,7 @@ DELIMITER = "--"
 
 # Build folders
 BUILD_FOLDER = ".build/lambdas/"
+LAYER_BUILD_FOLDER = ".build/layers/"
 
 # Lambda settings
 HANDLER_LAMBDA_TIMEOUT = 10

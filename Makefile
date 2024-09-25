@@ -18,6 +18,7 @@ deps:
 
 build:
 	mkdir -p .build/lambdas ; cp -r service .build/lambdas
+	mkdir -p .build/layers ; poetry export --without=dev --without-hashes --format=requirements.txt > .build/layers/requirements.txt
 
 test-infra: build
 	poetry run pytest -l -s --pdb tests/infrastructure

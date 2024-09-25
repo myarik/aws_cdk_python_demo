@@ -7,6 +7,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+jinja2 = "^3.1.4"
+aws-lambda-powertools = "^3.0.0"
 
 [tool.poetry.group.dev]
 optional = true
@@ -15,6 +17,7 @@ optional = true
 aws-cdk-lib = "^2.159.1"
 ruff = "^0.6.6"
 pytest = "^8.3.3"
+aws-cdk-aws-lambda-python-alpha = "^2.159.1a0"
 
 [build-system]
 requires = ["poetry-core"]
