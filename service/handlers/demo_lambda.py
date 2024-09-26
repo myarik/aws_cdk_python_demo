@@ -2,11 +2,12 @@
 Simple lambda handler
 """
 
-from typing import Any
-
 from aws_lambda_powertools import Logger
+from aws_lambda_powertools.utilities.parser import event_parser
 from aws_lambda_powertools.utilities.typing import LambdaContext
 from jinja2 import Environment, DictLoader
+
+from service.models.input import CreateTemplateRequest
 
 env = Environment(
     loader=DictLoader(
@@ -27,7 +28,8 @@ env = Environment(
 logger: Logger = Logger()
 
 
-def lambda_handler(event: dict[str, Any], context: LambdaContext) -> str:
+@event_parser
+def lambda_handler(event: CreateTemplateRequest, context: LambdaContext) -> str:
     """
     Simple lambda handler
     """
