@@ -5,6 +5,13 @@
 This repository demonstrates how to set up, deploy, and observe an AWS Lambda function in a microservice architecture
 using AWS CDK with Python.
 
+The repository article can be found [here](https://www.myarik.com/blog/aws_lambda_part1/).
+
+- [Step 1: Setting Up and Structuring the AWS Lambda Project](https://github.com/myarik/aws-cdk-python-demo.git)
+- [Step 2: Building and Deploying a Python Lambda Function Using Lambda Layers](https://github.com/myarik/aws_cdk_python_demo/tree/lambda-layers)
+- [Step 3: Input Data Validation](https://github.com/myarik/aws_cdk_python_demo/tree/input_validation)
+- [Step 4: Setting up Monitoring and Alarms](https://github.com/myarik/aws_cdk_python_demo)
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
