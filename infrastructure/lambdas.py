@@ -15,6 +15,9 @@ class DemoLambdaConstruct(Construct):
         super().__init__(scope, construct_id)
         self.construct_id = construct_id
         self.lambda_function = self._build_lambda_function()
+        self.lambda_function_url = self.lambda_function.add_function_url(
+            auth_type=_lambda.FunctionUrlAuthType.NONE,
+        )
 
     def _build_lambda_function(
         self,
@@ -32,7 +35,7 @@ class DemoLambdaConstruct(Construct):
             environment={
                 "POWERTOOLS_SERVICE_NAME": "demo-service",  # for logger, tracer and metrics
                 "POWERTOOLS_TRACE_DISABLED": "true",  # for tracer
-                "LOG_LEVEL": constants.LOG_LEVEL,  # for logger
+                "AWS_LAMBDA_LOG_LEVEL": constants.LOG_LEVEL,  # for logger
             },
             tracing=_lambda.Tracing.DISABLED,
             retry_attempts=0,
@@ -41,7 +44,8 @@ class DemoLambdaConstruct(Construct):
             layers=[self._build_lambda_layer()],
             log_retention=RetentionDays.ONE_DAY,
             log_format=_lambda.LogFormat.JSON.value,
-            system_log_level=_lambda.SystemLogLevel.INFO.value,
+            system_log_level_v2=_lambda.SystemLogLevel.INFO,
+            application_log_level_v2=_lambda.ApplicationLogLevel.DEBUG,
         )
 
     def _build_lambda_layer(self) -> PythonLayerVersion:

@@ -12,10 +12,7 @@ from constructs import Construct
 
 class MonitoringDashboard(Construct):
     def __init__(
-            self,
-            scope: Construct,
-            construct_id: str,
-            dashboard_name: str
+        self, scope: Construct, construct_id: str, dashboard_name: str
     ) -> None:
         super().__init__(scope, construct_id)
         self.construct_id = construct_id
@@ -151,10 +148,10 @@ class MonitoringDashboard(Construct):
         )
 
     def add_p90_latency_lambda_alarm(
-            self,
-            construct_id: str,
-            lambda_function: _lambda.Function,
-            threshold_duration: Duration,
+        self,
+        construct_id: str,
+        lambda_function: _lambda.Function,
+        threshold_duration: Duration,
     ) -> None:
         """
         Add P90 latency alarm for the lambda function
@@ -175,10 +172,10 @@ class MonitoringDashboard(Construct):
         alarm.add_alarm_action(cloudwatch_actions.SnsAction(self.alarm_topic))
 
     def add_error_rate_lambda_alarm(
-            self,
-            construct_id: str,
-            lambda_function: _lambda.Function,
-            threshold_max_count: int,
+        self,
+        construct_id: str,
+        lambda_function: _lambda.Function,
+        threshold_max_count: int,
     ) -> None:
         """
         Add error rate alarm for the lambda function

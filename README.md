@@ -1,24 +1,18 @@
-# AWS CDK Python Demo: Lambda Function in a Microservice Architecture
+# Building a REST API with AWS Lambda URLs, Python, and AWS CDK
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/myarik/aws-cdk-python-demo)
 
-This repository demonstrates how to set up, deploy, and observe an AWS Lambda function in a microservice architecture
-using AWS CDK with Python.
-
-The repository article can be found [here](https://www.myarik.com/blog/aws_lambda_part1/).
-
-- [Step 1: Setting Up and Structuring the AWS Lambda Project](https://github.com/myarik/aws-cdk-python-demo.git)
-- [Step 2: Building and Deploying a Python Lambda Function Using Lambda Layers](https://github.com/myarik/aws_cdk_python_demo/tree/lambda-layers)
-- [Step 3: Input Data Validation](https://github.com/myarik/aws_cdk_python_demo/tree/input_validation)
-- [Step 4: Setting up Monitoring and Alarms](https://github.com/myarik/aws_cdk_python_demo)
+This branch contains the demo code that demonstrates how to build a REST API using AWS Lambda Function URLs and AWS CDK
+with Python.
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
+- [Service Schema](#service-schema)
+- [Available Endpoints](#available-endpoints)
 - [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Testing](#testing)
-- [Deployment](#deployment)
+- [Using the API](#using-the-api)
+- [Swagger UI](#swagger-ui)
 
 ## Prerequisites
 
@@ -26,6 +20,22 @@ The repository article can be found [here](https://www.myarik.com/blog/aws_lambd
 - AWS CLI configured with appropriate permissions
 - Node.js and npm (for AWS CDK)
 - Poetry for Python dependency management
+
+## Service Schema
+
+The schema below outlines the project's structure
+
+![Service Schema](./assets/aws_lambda_url.jpg)
+
+## Available Endpoints
+
+The API provides the following endpoints:
+
+- GET /users - Retrieves all users and supports optional query parameters for filtering.
+- GET /users/:user_uuid - Retrieves a specific user by their UUID
+- POST /users - Create a new user
+- PUT /users/:user_uuid - Update an existing user
+- DELETE /users/:user_uuid - Deletes a user by their UUID
 
 ## Installation
 
@@ -42,37 +52,40 @@ cd aws-cdk-python-demo
 make dev
 ```
 
-## Project Structure
-
-```plaintext
-aws-cdk-python-demo/
-├── app.py                  # CDK app entry point
-├── infrastructure/         # CDK stack definitions
-├── service/                # Lambda function code
-├── tests/                  # Test files
-├── Makefile                # Utility commands
-├── README.md
-└── pyproject.toml          # Python project configuration
-```
-
-## Testing
-
-Run tests using:
+3. Run tests using:
 
 ```bash
 make test
 ```
 
-## Deployment
-
-Deploy the stack:
+4. Deploy the stack:
 
 ```bash
 make deploy
 ```
 
-To destroy the stack:
+## Using the API
 
-```bash 
-make destroy
-```
+To use this API, send HTTP requests to the Lambda Function URL with the appropriate HTTP method and path.
+
+**Example:**
+
+```shell
+# Create a new user
+$ http https://<url-id>.lambda-url.<region>/users email=manager4@example.com role=manager
+# Retrieve a specific user
+$ http https://<url-id>.lambda-url.<region>/users/550e8400-e29b-41d4-a716-446655440008
+# Retrieve all users with a specific role and active status
+$ http https://<url-id>.lambda-url.<region>/users\?role\=customer\&is_active\=false
+# Update an existing user
+$ http PUT https://<url-id>.lambda-url.<region>/users/550e8400-e29b-41d4-a716-446655440008 email=newemail@example.com role=admin active:=false
+# Delete a user
+$ http DELETE https://<url-id>.lambda-url.<region>/users/550e8400-e29b-41d4-a716-446655440008
+````
+
+## Swagger UI
+
+This API includes Swagger documentation for easy exploration and testing. You can access the Swagger UI by sending a GET
+request to the `/swagger` endpoint of the Lambda Function URL.
+
+![Swagger UI](./assets/swagger_ui.jpg)

@@ -1,5 +1,5 @@
 .PHONY: dev format format-fix deps build test-infra test-service test deploy destroy
-PYTHON := ".venv/bin/python3"
+PYTHON := $(or $(PYTHON_PATH), ".venv/bin/python3")
 .ONESHELL:  # run all commands in a single shell, ensuring it runs within a local virtual env
 
 dev:
