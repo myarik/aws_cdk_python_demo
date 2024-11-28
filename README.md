@@ -10,7 +10,7 @@ The repository article can be found [here](https://www.myarik.com/blog/aws_lambd
 - [Step 1: Setting Up and Structuring the AWS Lambda Project](https://github.com/myarik/aws-cdk-python-demo.git)
 - [Step 2: Building and Deploying a Python Lambda Function Using Lambda Layers](https://github.com/myarik/aws_cdk_python_demo/tree/lambda-layers)
 - [Step 3: Input Data Validation](https://github.com/myarik/aws_cdk_python_demo/tree/input_validation)
-- [Step 4: Setting up Monitoring and Alarms](https://github.com/myarik/aws_cdk_python_demo)
+- [Step 4: Setting up Monitoring and Alarms](https://github.com/myarik/aws_cdk_python_demo/tree/lambda-validation-monitoring)
 
 ## Table of Contents
 
@@ -32,7 +32,7 @@ The repository article can be found [here](https://www.myarik.com/blog/aws_lambd
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/myarik/aws-cdk-python-demo.git 
+git clone --branch lambda-validation-monitoring git@github.com:myarik/aws_cdk_python_demo.git 
 cd aws-cdk-python-demo
 ```
 
