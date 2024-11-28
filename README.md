@@ -42,7 +42,7 @@ The API provides the following endpoints:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/myarik/aws-cdk-python-demo.git 
+git clone --branch lambda-url git@github.com:myarik/aws_cdk_python_demo.git 
 cd aws-cdk-python-demo
 ```
 
