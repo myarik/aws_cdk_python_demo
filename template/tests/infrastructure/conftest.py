@@ -7,14 +7,15 @@ import aws_cdk as core
 import aws_cdk.assertions as assertions
 
 from infrastructure.component import PythonDemoMonitoringStack, PythonDemoStack
+from infrastructure.utils import get_monitoring_stack_name, get_stack_name
 
 
 @pytest.fixture(scope="session")
 def _stacks():
     app = core.App()
-    lambda_stack = PythonDemoStack(app, "demo-cdk-test")
+    lambda_stack = PythonDemoStack(app, get_stack_name())
     monitoring_stack = PythonDemoMonitoringStack(
-        app, "demo-cdk-monitoring-test", lambda_stack=lambda_stack
+        app, get_monitoring_stack_name(), lambda_stack=lambda_stack
     )
     return lambda_stack, monitoring_stack
 

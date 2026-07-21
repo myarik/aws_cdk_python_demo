@@ -28,6 +28,8 @@ The template generates a project with two CDK stacks:
 - SNS Topic for alarm notifications
 - CloudWatch Alarms — P90 latency > 30s, error count > 2 per 10 min
 
+Both stacks are prefixed with the target environment — `<environment>-<project_name>` and `<environment>-monitoring-<project_name>` — so all resources for an environment can be filtered with `staging-*`, `prod-*`, and so on. `ENVIRONMENT` defaults to `dev`.
+
 ## Prerequisites
 
 - Python 3.14+, [uv](https://docs.astral.sh/uv/), Node.js (for CDK CLI), AWS CLI with configured credentials
@@ -96,7 +98,8 @@ my-lambda-service/
     ├── infrastructure/             # CDK assertion tests
     │   ├── conftest.py             # Shared fixtures
     │   ├── test_lambda_stack.py    # Lambda stack tests
-    │   └── test_monitoring_stack.py
+    │   ├── test_monitoring_stack.py
+    │   └── test_utils.py           # Stack naming tests
     └── service/
         └── test_base_lambda_function.py  # Handler unit tests
 ```
@@ -111,7 +114,7 @@ my-lambda-service/
 | `make test-infra` | Run infrastructure tests only |
 | `make test-service` | Run service tests only |
 | `make build` | Build Lambda package and dependency Layer |
-| `make deploy` | Build and deploy all stacks to AWS |
+| `make deploy` | Build and deploy all stacks to AWS (`ENVIRONMENT=prod make deploy`) |
 | `make deploy-monitoring-dashboard` | Deploy monitoring stack only |
 | `make destroy` | Destroy all deployed stacks |
 | `make logs` | Fetch Lambda logs (`ENVIRONMENT=prod LAMBDA=hello_lambda make logs`) |

@@ -1,5 +1,10 @@
 .ONESHELL:
 
+# Target environment - prefixes every stack name (e.g. dev-{{ project_name }})
+# Exported so the CDK app picks it up when passed as a make variable
+ENVIRONMENT ?= dev
+export ENVIRONMENT
+
 # Auto-documented help
 # https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
@@ -57,24 +62,24 @@ build: ## Build the project
 
 ##@ Deploy
 
-deploy: build ## Build and deploy the project
-	npx cdk deploy --app="uv run python ${PWD}/app.py" --require-approval=never "{{ project_name }}--*"
+deploy: build ## Build and deploy the project (usage: ENVIRONMENT=prod make deploy)
+	npx cdk deploy --app="uv run python ${PWD}/app.py" --require-approval=never "$(ENVIRONMENT)-{{ project_name }}"
 .PHONY: deploy
 
 deploy-monitoring-dashboard: ## Deploy monitoring dashboard
-	npx cdk deploy --app="uv run python ${PWD}/app.py" --require-approval=never "{{ project_name }}-monitoring--*"
+	npx cdk deploy --app="uv run python ${PWD}/app.py" --require-approval=never "$(ENVIRONMENT)-monitoring-{{ project_name }}"
 .PHONY: deploy-monitoring-dashboard
 
 destroy: ## Destroy all stacks
-	npx cdk destroy --app="uv run python ${PWD}/app.py" --force "{{ project_name }}-monitoring--*"
-	npx cdk destroy --app="uv run python ${PWD}/app.py" --force "{{ project_name }}--*"
+	npx cdk destroy --app="uv run python ${PWD}/app.py" --force "$(ENVIRONMENT)-monitoring-{{ project_name }}"
+	npx cdk destroy --app="uv run python ${PWD}/app.py" --force "$(ENVIRONMENT)-{{ project_name }}"
 .PHONY: destroy
 
 ##@ Lambda Logs
 
 logs: ## Get lambda logs (usage: ENVIRONMENT=prod LAMBDA=hello_lambda make logs)
 	aws logs filter-log-events \
-		--log-group-name "/aws/lambda/{{ project_name }}--$${ENVIRONMENT}-$${LAMBDA}" \
+		--log-group-name "/aws/lambda/$(ENVIRONMENT)-{{ project_name }}-$${LAMBDA}" \
 		--start-time "$$(date -v -1d +%s000)" \
 		--query "events[*].{timestamp:timestamp,message:message}" \
 		--output json | \

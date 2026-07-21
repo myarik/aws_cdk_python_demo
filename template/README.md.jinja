@@ -18,10 +18,17 @@ make build     # Build Lambda package
 
 ## Deploy
 
+Stacks are named `<environment>-{{ project_name }}` and
+`<environment>-monitoring-{{ project_name }}`, so every resource for an
+environment shares a prefix (filter with `staging-*`, `prod-*`, ...).
+`ENVIRONMENT` defaults to `dev`.
+
 ```bash
 make deploy                       # Deploy all stacks
 make deploy-monitoring-dashboard  # Deploy monitoring only
 make destroy                      # Tear down all stacks
+
+ENVIRONMENT=prod make deploy      # Deploy to another environment
 ```
 
 ## Logs
